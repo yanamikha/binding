@@ -1,0 +1,61 @@
+<html>
+<head>
+<style>
+    body {
+      background-color: lightyellow;
+      padding: 10px 0px 10px 0px;
+      margin: 10px; 
+      font-size: 15px; 
+      font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;   
+    }
+    body *{
+margin: 10px 0px 0px 10px;
+    }
+  
+</style>
+</head>
+<body> 
+       <p style="font-size: large; color: blue;">Tourists form</p>
+ <label>From:</label>  <input id="startdate" type="text" placeholder="yyyy-mm-dd">
+ <label>To:</label>    <input id="enddate" type="text" placeholder="yyyy-mm-dd">
+  
+    <select id="room">
+      <option></option>
+      <option value="studio">studio</option>
+      <option value="1bed">1bed</option> 
+      <option value="2bed">2bed</option> 
+    </select>
+ 
+ <button  onClick="calc()">calculate</button>
+   <div><label>Total:</label>  <input id="sum" type="text" readonly /></div> 
+   
+<script src="mybinder.js"></script>
+<script>
+const pricing = {
+  "studio": 10,
+  "1bed": 15,
+  "2bed": 20
+}
+let model = {
+  startdate: "yyyy-mm-dd",
+  enddate: "yyyy-mm-dd",
+  room: "",
+  sum: 0
+}
+mybinder.bind("startdate", model, 'startdate');
+mybinder.bind("enddate", model, 'enddate');
+mybinder.bind("room", model, 'room');
+mybinder.bind("sum", model, 'sum');
+
+function calc(){
+  if(model.startdate && model.enddate && model.room) {
+    const days = Math.round((new Date(model.enddate) - new Date(model.startdate))/(24*60*60*1000));
+    if(pricing[model.room]) 
+    {    
+      model.sum = pricing[model.room] * days; 
+    }
+   }
+  } 
+</script>
+</body>
+</html>
